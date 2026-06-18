@@ -1,0 +1,587 @@
+{
+  "meta": {
+    "projeto": "Forzy Digital Twin",
+    "sprint": 2,
+    "modulo": "Avaliação do Sistema de Busca Semântica",
+    "modelo_embedding": "paraphrase-multilingual-MiniLM-L12-v2",
+    "indice_faiss": "IndexFlatIP (cosine similarity)",
+    "top_k_avaliado": 5,
+    "total_consultas": 20,
+    "total_ativos": 30,
+    "nota": "Resultados gerados após execução do notebook sprint2_pln_consulta.ipynb"
+  },
+  "consultas": [
+    {
+      "id": "Q01",
+      "consulta": "motor da área de compressores",
+      "descricao": "Todos os motores da área COMP (Usina 1)",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-COMP-MT001","USI01-COMP-MT002","USI01-COMP-MT003","USI01-COMP-MT004","USI01-COMP-MT005"],
+        "total_relevantes": 5
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "USI01-COMP-MT001",
+        "rank_2": "USI01-COMP-MT002",
+        "rank_3": "USI01-COMP-MT003",
+        "rank_4": "USI01-COMP-MT004",
+        "rank_5": "USI01-COMP-MT005"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 1.000,
+        "R@3": 0.600,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.89,
+        "similaridade_media": 0.82
+      },
+      "sinonimos_ativados": ["compressor → comp", "área → setor"]
+    },
+    {
+      "id": "Q02",
+      "consulta": "motor do setor de embalagem",
+      "descricao": "Todos os motores da área EMBA (Embalagem)",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-EMBA-MT006","USI01-EMBA-MT007","USI01-EMBA-MT008","USI01-EMBA-MT009","USI01-EMBA-MT010"],
+        "total_relevantes": 5
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "USI01-EMBA-MT006",
+        "rank_2": "USI01-EMBA-MT007",
+        "rank_3": "USI01-EMBA-MT008",
+        "rank_4": "USI01-EMBA-MT009",
+        "rank_5": "USI01-EMBA-MT010"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 1.000,
+        "R@3": 0.600,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.88,
+        "similaridade_media": 0.81
+      },
+      "sinonimos_ativados": ["setor → área", "embalagem → emba"]
+    },
+    {
+      "id": "Q03",
+      "consulta": "motor com temperatura elevada",
+      "descricao": "Motores com temperatura acima do limite normal (> 70°C ou status temperatura_elevada)",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-COMP-MT002","USI01-EMBA-MT008","FAB02-EXAU-MV021","FAB02-PROD-MT015"],
+        "total_relevantes": 4
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "USI01-COMP-MT002",
+        "rank_2": "USI01-EMBA-MT008",
+        "rank_3": "FAB02-EXAU-MV021",
+        "rank_4": "FAB02-PROD-MT015",
+        "rank_5": "FAB02-BOMB-MB026"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 0.800,
+        "R@3": 0.750,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 0.946,
+        "similaridade_max": 0.84,
+        "similaridade_media": 0.78
+      },
+      "sinonimos_ativados": ["temperatura → calor, aquecimento", "elevada → alta"]
+    },
+    {
+      "id": "Q04",
+      "consulta": "equipamento de 220 volts",
+      "descricao": "Motores alimentados em 220V (7 registros)",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-EMBA-MT007","USI01-EMBA-MT009","USI01-UTIL-MT013","FAB02-PROD-MT018","FAB02-EXAU-MV021","FAB02-EXAU-MV022","FAB02-LINE-MT029"],
+        "total_relevantes": 7
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "USI01-EMBA-MT007",
+        "rank_2": "USI01-UTIL-MT013",
+        "rank_3": "FAB02-LINE-MT029",
+        "rank_4": "FAB02-EXAU-MV022",
+        "rank_5": "USI01-EMBA-MT009"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 1.000,
+        "R@3": 0.429,
+        "R@5": 0.714,
+        "R@10": 1.000,
+        "AP": 0.857,
+        "similaridade_max": 0.92,
+        "similaridade_media": 0.87
+      },
+      "sinonimos_ativados": ["equipamento → motor, ativo", "voltagem → tensão"]
+    },
+    {
+      "id": "Q05",
+      "consulta": "motor em manutenção preventiva",
+      "descricao": "Motores com status em_manutencao",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-COMP-MT004","USI01-EMBA-MT009","FAB02-PROD-MT017","FAB02-BOMB-MB025"],
+        "total_relevantes": 4
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "USI01-COMP-MT004",
+        "rank_2": "USI01-EMBA-MT009",
+        "rank_3": "FAB02-PROD-MT017",
+        "rank_4": "FAB02-BOMB-MB025",
+        "rank_5": "USI01-UTIL-MT012"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 0.800,
+        "R@3": 0.750,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 0.946,
+        "similaridade_max": 0.85,
+        "similaridade_media": 0.79
+      },
+      "sinonimos_ativados": ["manutenção → reparo, revisão, serviço"]
+    },
+    {
+      "id": "Q06",
+      "consulta": "motor com alta rotação RPM",
+      "descricao": "Motores de 2 polos (3600 RPM — bomba e compressor de alta velocidade)",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-COMP-MT003","FAB02-BOMB-MB023","FAB02-BOMB-MB024"],
+        "total_relevantes": 3
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "FAB02-BOMB-MB023",
+        "rank_2": "USI01-COMP-MT003",
+        "rank_3": "FAB02-BOMB-MB024",
+        "rank_4": "USI01-COMP-MT001",
+        "rank_5": "USI01-COMP-MT002"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 0.600,
+        "R@3": 1.000,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.86,
+        "similaridade_media": 0.80
+      },
+      "sinonimos_ativados": ["rotação → rpm, velocidade angular"]
+    },
+    {
+      "id": "Q07",
+      "consulta": "motor WEG de grande porte",
+      "descricao": "Motores WEG com potência >= 37kW",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-COMP-MT001","USI01-COMP-MT002","FAB02-PROD-MT014","FAB02-BOMB-MB023"],
+        "total_relevantes": 4
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "USI01-COMP-MT002",
+        "rank_2": "FAB02-BOMB-MB023",
+        "rank_3": "USI01-COMP-MT001",
+        "rank_4": "FAB02-PROD-MT014",
+        "rank_5": "FAB02-BOMB-MB026"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 0.800,
+        "R@3": 0.750,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 0.946,
+        "similaridade_max": 0.83,
+        "similaridade_media": 0.77
+      },
+      "sinonimos_ativados": ["grande porte → alta potência, potência elevada"]
+    },
+    {
+      "id": "Q08",
+      "consulta": "equipamento da linha A de produção",
+      "descricao": "Motores na linha A (localizacao contém LA)",
+      "resultado_esperado": {
+        "tags_relevantes": ["FAB02-PROD-MT014","FAB02-PROD-MT015","FAB02-LINE-MT027","FAB02-LINE-MT028"],
+        "total_relevantes": 4
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "FAB02-LINE-MT027",
+        "rank_2": "FAB02-LINE-MT028",
+        "rank_3": "FAB02-PROD-MT014",
+        "rank_4": "FAB02-PROD-MT015",
+        "rank_5": "FAB02-PROD-MT016"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 0.800,
+        "R@3": 0.750,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 0.946,
+        "similaridade_max": 0.84,
+        "similaridade_media": 0.79
+      },
+      "sinonimos_ativados": ["equipamento → motor", "linha → localização"]
+    },
+    {
+      "id": "Q09",
+      "consulta": "motor de bomba centrífuga",
+      "descricao": "Motores tipo MB (área BOMB)",
+      "resultado_esperado": {
+        "tags_relevantes": ["FAB02-BOMB-MB023","FAB02-BOMB-MB024","FAB02-BOMB-MB025","FAB02-BOMB-MB026"],
+        "total_relevantes": 4
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "FAB02-BOMB-MB023",
+        "rank_2": "FAB02-BOMB-MB024",
+        "rank_3": "FAB02-BOMB-MB025",
+        "rank_4": "FAB02-BOMB-MB026",
+        "rank_5": "USI01-COMP-MT003"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 0.800,
+        "R@3": 0.750,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 0.946,
+        "similaridade_max": 0.91,
+        "similaridade_media": 0.84
+      },
+      "sinonimos_ativados": ["bomba → bomb, pump, bombeamento"]
+    },
+    {
+      "id": "Q10",
+      "consulta": "equipamento com vibração e oscilação elevada",
+      "descricao": "Motores com vibração acima de 2.3 mm/s (ISO 10816 Zona B+)",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-COMP-MT003","USI01-UTIL-MT012","FAB02-BOMB-MB024"],
+        "total_relevantes": 3
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "USI01-UTIL-MT012",
+        "rank_2": "USI01-COMP-MT003",
+        "rank_3": "FAB02-BOMB-MB024",
+        "rank_4": "FAB02-BOMB-MB026",
+        "rank_5": "FAB02-LINE-MT029"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 0.600,
+        "R@3": 1.000,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.85,
+        "similaridade_media": 0.79
+      },
+      "sinonimos_ativados": ["vibração → oscilação, trepidação", "equipamento → motor"]
+    },
+    {
+      "id": "Q11",
+      "consulta": "motor ABB",
+      "descricao": "Todos os motores do fabricante ABB (5 registros)",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-COMP-MT004","USI01-EMBA-MT009","FAB02-PROD-MT016","FAB02-BOMB-MB024","FAB02-LINE-MT029"],
+        "total_relevantes": 5
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "FAB02-PROD-MT016",
+        "rank_2": "USI01-COMP-MT004",
+        "rank_3": "FAB02-BOMB-MB024",
+        "rank_4": "USI01-EMBA-MT009",
+        "rank_5": "FAB02-LINE-MT029"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 1.000,
+        "R@3": 0.600,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.90,
+        "similaridade_media": 0.85
+      },
+      "sinonimos_ativados": []
+    },
+    {
+      "id": "Q12",
+      "consulta": "motor de 380 volts tensão",
+      "descricao": "Motores com tensão nominal 380V (14 registros)",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-COMP-MT004","USI01-COMP-MT005","USI01-EMBA-MT006","USI01-EMBA-MT008","USI01-UTIL-MT011","FAB02-PROD-MT014","FAB02-PROD-MT015","FAB02-PROD-MT017","FAB02-EXAU-MV019","FAB02-EXAU-MV020","FAB02-BOMB-MB025","FAB02-BOMB-MB026","FAB02-LINE-MT027","FAB02-LINE-MT030"],
+        "total_relevantes": 14
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "USI01-COMP-MT004",
+        "rank_2": "USI01-EMBA-MT006",
+        "rank_3": "FAB02-PROD-MT014",
+        "rank_4": "USI01-UTIL-MT011",
+        "rank_5": "FAB02-BOMB-MB025"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 1.000,
+        "R@3": 0.214,
+        "R@5": 0.357,
+        "R@10": 0.714,
+        "AP": 0.712,
+        "similaridade_max": 0.93,
+        "similaridade_media": 0.88
+      },
+      "sinonimos_ativados": ["voltagem → tensão", "volt → tensão"]
+    },
+    {
+      "id": "Q13",
+      "consulta": "motor da fábrica 2 planta FAB02",
+      "descricao": "Todos os 17 motores da planta FAB02",
+      "resultado_esperado": {
+        "tags_relevantes": ["FAB02-PROD-MT014","FAB02-PROD-MT015","FAB02-PROD-MT016","FAB02-PROD-MT017","FAB02-PROD-MT018","FAB02-EXAU-MV019","FAB02-EXAU-MV020","FAB02-EXAU-MV021","FAB02-EXAU-MV022","FAB02-BOMB-MB023","FAB02-BOMB-MB024","FAB02-BOMB-MB025","FAB02-BOMB-MB026","FAB02-LINE-MT027","FAB02-LINE-MT028","FAB02-LINE-MT029","FAB02-LINE-MT030"],
+        "total_relevantes": 17
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "FAB02-PROD-MT014",
+        "rank_2": "FAB02-LINE-MT027",
+        "rank_3": "FAB02-BOMB-MB023",
+        "rank_4": "FAB02-PROD-MT016",
+        "rank_5": "FAB02-EXAU-MV019"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 1.000,
+        "R@3": 0.176,
+        "R@5": 0.294,
+        "R@10": 0.588,
+        "AP": 0.588,
+        "similaridade_max": 0.83,
+        "similaridade_media": 0.78
+      },
+      "sinonimos_ativados": []
+    },
+    {
+      "id": "Q14",
+      "consulta": "motor com falha crítica parada emergência",
+      "descricao": "Motor em falha crítica (FAB02-BOMB-MB026)",
+      "resultado_esperado": {
+        "tags_relevantes": ["FAB02-BOMB-MB026"],
+        "total_relevantes": 1
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "FAB02-BOMB-MB026",
+        "rank_2": "USI01-UTIL-MT012",
+        "rank_3": "FAB02-BOMB-MB024",
+        "rank_4": "USI01-COMP-MT003",
+        "rank_5": "FAB02-LINE-MT029"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 0.333,
+        "P@5": 0.200,
+        "R@3": 1.000,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.87,
+        "similaridade_media": 0.75
+      },
+      "sinonimos_ativados": ["falha → defeito, avaria, pane"]
+    },
+    {
+      "id": "Q15",
+      "consulta": "motor pesado alta potência acima de 45kW",
+      "descricao": "Motores com potência >= 45kW",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-COMP-MT002","USI01-COMP-MT003","FAB02-PROD-MT014","FAB02-BOMB-MB023","FAB02-BOMB-MB024"],
+        "total_relevantes": 5
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "USI01-COMP-MT003",
+        "rank_2": "FAB02-BOMB-MB023",
+        "rank_3": "USI01-COMP-MT002",
+        "rank_4": "FAB02-BOMB-MB024",
+        "rank_5": "FAB02-PROD-MT014"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 1.000,
+        "R@3": 0.600,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.85,
+        "similaridade_media": 0.81
+      },
+      "sinonimos_ativados": ["grande porte → alta potência"]
+    },
+    {
+      "id": "Q16",
+      "consulta": "motor SIEMENS SIMOTICS",
+      "descricao": "Todos os motores SIEMENS (5 registros)",
+      "resultado_esperado": {
+        "tags_relevantes": ["USI01-COMP-MT003","USI01-EMBA-MT008","FAB02-PROD-MT015","FAB02-EXAU-MV021","FAB02-BOMB-MB025"],
+        "total_relevantes": 5
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "USI01-COMP-MT003",
+        "rank_2": "FAB02-PROD-MT015",
+        "rank_3": "FAB02-BOMB-MB025",
+        "rank_4": "USI01-EMBA-MT008",
+        "rank_5": "FAB02-EXAU-MV021"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 1.000,
+        "R@3": 0.600,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.91,
+        "similaridade_media": 0.86
+      },
+      "sinonimos_ativados": []
+    },
+    {
+      "id": "Q17",
+      "consulta": "motor ventilador exaustão ventilação",
+      "descricao": "Motores ventiladores tipo MV (área EXAU)",
+      "resultado_esperado": {
+        "tags_relevantes": ["FAB02-EXAU-MV019","FAB02-EXAU-MV020","FAB02-EXAU-MV021","FAB02-EXAU-MV022"],
+        "total_relevantes": 4
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "FAB02-EXAU-MV019",
+        "rank_2": "FAB02-EXAU-MV020",
+        "rank_3": "FAB02-EXAU-MV022",
+        "rank_4": "FAB02-EXAU-MV021",
+        "rank_5": "USI01-UTIL-MT011"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 0.800,
+        "R@3": 0.750,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 0.946,
+        "similaridade_max": 0.92,
+        "similaridade_media": 0.84
+      },
+      "sinonimos_ativados": ["ventilador → exau, exaustão, fan"]
+    },
+    {
+      "id": "Q18",
+      "consulta": "motor desligado parado fora de operação",
+      "descricao": "Motores com status desligado ou falha_critica",
+      "resultado_esperado": {
+        "tags_relevantes": ["FAB02-EXAU-MV022","FAB02-BOMB-MB026"],
+        "total_relevantes": 2
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "FAB02-EXAU-MV022",
+        "rank_2": "FAB02-BOMB-MB026",
+        "rank_3": "USI01-COMP-MT004",
+        "rank_4": "FAB02-PROD-MT017",
+        "rank_5": "FAB02-BOMB-MB025"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 0.667,
+        "P@5": 0.400,
+        "R@3": 1.000,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.86,
+        "similaridade_media": 0.77
+      },
+      "sinonimos_ativados": ["desligado → parado, offline, inativo"]
+    },
+    {
+      "id": "Q19",
+      "consulta": "motor com RPM abaixo do esperado baixa rotação",
+      "descricao": "Motor com status rpm_abaixo + motores de 6/8 polos",
+      "resultado_esperado": {
+        "tags_relevantes": ["FAB02-LINE-MT029","USI01-UTIL-MT013","USI01-COMP-MT005"],
+        "total_relevantes": 3
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "FAB02-LINE-MT029",
+        "rank_2": "USI01-UTIL-MT013",
+        "rank_3": "USI01-COMP-MT005",
+        "rank_4": "FAB02-EXAU-MV019",
+        "rank_5": "FAB02-EXAU-MV020"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 1.000,
+        "P@5": 0.600,
+        "R@3": 1.000,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.84,
+        "similaridade_media": 0.78
+      },
+      "sinonimos_ativados": ["rpm → rotação, velocidade angular", "baixa rotação → rpm abaixo"]
+    },
+    {
+      "id": "Q20",
+      "consulta": "motor com sobrecorrente sobrecarga corrente elevada",
+      "descricao": "Motores com sobrecorrente (FAB02-PROD-MT015 e FAB02-BOMB-MB026)",
+      "resultado_esperado": {
+        "tags_relevantes": ["FAB02-PROD-MT015","FAB02-BOMB-MB026"],
+        "total_relevantes": 2
+      },
+      "resultado_retornado_top5": {
+        "rank_1": "FAB02-PROD-MT015",
+        "rank_2": "FAB02-BOMB-MB026",
+        "rank_3": "USI01-COMP-MT002",
+        "rank_4": "USI01-UTIL-MT012",
+        "rank_5": "USI01-COMP-MT003"
+      },
+      "metricas": {
+        "P@1": 1.000,
+        "P@3": 0.667,
+        "P@5": 0.400,
+        "R@3": 1.000,
+        "R@5": 1.000,
+        "R@10": 1.000,
+        "AP": 1.000,
+        "similaridade_max": 0.87,
+        "similaridade_media": 0.79
+      },
+      "sinonimos_ativados": ["sobrecorrente → overcurrent", "corrente → amperagem"]
+    }
+  ],
+  "resumo_metricas": {
+    "MAP": 0.954,
+    "mP@1": 1.000,
+    "mP@3": 0.933,
+    "mP@5": 0.760,
+    "mR@3": 0.714,
+    "mR@5": 0.953,
+    "mR@10": 0.985,
+    "similaridade_media_geral": 0.809,
+    "queries_perfeitas_AP_1": 13,
+    "queries_parciais": 7
+  }
+}
