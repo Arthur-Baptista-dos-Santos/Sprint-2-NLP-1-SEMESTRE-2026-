@@ -14,7 +14,7 @@ Este projeto implementa a **camada de inteligência linguística** do Digital Tw
 
 2. **Busca semântica em linguagem natural** — o operador digita *"motor com calor elevado na área de compressores"* e o sistema recupera os ativos relevantes, mesmo que a ficha técnica use *"temperatura_elevada"* e *"COMP"*.
 
-3. **Enriquecimento textual automático** — o Digital Twin substitui leituras numéricas brutas por descrições operacionais em português: *"⚠️ ALERTA TÉRMICO — Motor USI01-COMP-MT002 registra 78.4°C, acima do limite recomendado..."*
+3. **Enriquecimento textual automático** — o Digital Twin substitui leituras numéricas brutas por descrições operacionais em português: *"⚠ ALERTA TÉRMICO — Motor USI01-COMP-MT002 registra 78.4°C, acima do limite recomendado..."*
 
 ---
 
